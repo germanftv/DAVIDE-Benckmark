@@ -1,0 +1,7 @@
+name: 021_train_shiftnet_RGBD_dat_shiftdepth1_seed10
+aux_data_model: [depth]
+manual_seed: 10
+
+network_g:
+  fusion_opt: DaT
+  shift_depth_feat: true

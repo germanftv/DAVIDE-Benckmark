@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "basicsr"
+version = "1.2.0"
+description = "Open Source Image and Video Super-Resolution Toolbox"
+readme = "README.md"  # if you have one; otherwise you can remove or set to an empty string
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Xintao Wang", email = "xintao.wang@outlook.com" }
+]
+keywords = ["computer vision", "restoration", "super resolution"]
+urls = { Homepage = "https://github.com/xinntao/BasicSR" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8"
+]
+dependencies = [
+    "torch==1.13.1",
+    "torchvision==0.14.1",
+    "numpy<2.0"
+]
+
+[tool.setuptools.packages.find]
+include = ["*"]
+exclude = []

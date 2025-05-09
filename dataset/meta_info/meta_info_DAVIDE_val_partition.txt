@@ -1,0 +1,7 @@
+birds03 125
+dog06 0
+farm04 22
+flowers05 227
+indoors01 114
+play_ground04 0
+toy02 137

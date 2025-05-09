@@ -1,0 +1,147 @@
+# general settings
+name: 000_train_DGN_single_frame
+num_gpu: 2
+model_type: DavideModel
+aux_data_model: [depth]
+in_seq_length: 1
+out_seq_length: 1
+scale: 1
+find_unused_parameters: false
+use_static_graph: false
+manual_seed: 10
+
+datasets:
+  train:
+    name: DAViDE-training_dataset
+    type: DavideTrainDataset
+    dataroots: &dataroots_ptr
+      gt: ${oc.env:DATASET_ROOT}/train_gt.lmdb
+      blur: ${oc.env:DATASET_ROOT}/train_blurred.lmdb
+      depth: ${oc.env:DATASET_ROOT}/train_depth.lmdb
+    meta_info_file: dataset/meta_info/meta_info_DAVIDE_train.txt
+    val_partition_file: dataset/meta_info/meta_info_DAVIDE_val_partition.txt
+    filename_tmpl: 08d
+    filename_ext: png
+    io_backend:
+      type: lmdb
+
+    num_seqs_per_video: 100
+    concat_frames_in_batch: false
+    scale: 1
+    resize:
+      factor: 0.8
+    cropping: 
+      type: random
+      gt_patch_size: 304
+    augmentations:
+      use_random_reverse: false
+      use_flip: true
+      use_rot: true
+    use_local_scratch: true
+    depth_normalization: &depth_normalization_ptr
+      type: frame_abs_maxnorm
+      depth_range: [null, null]
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 3
+    batch_size_per_gpu: 2
+    prefetch_mode: cpu
+    pin_memory: false
+  
+  val:
+    name: DAVIDE-validation_dataset
+    type: DavideValDataset
+    dataroots:
+      gt: ${oc.env:DATASET_ROOT}/train/gt
+      blur: ${oc.env:DATASET_ROOT}/train/blur
+      depth: ${oc.env:DATASET_ROOT}/train/depth
+    meta_info_file: dataset/meta_info/meta_info_DAVIDE_train.txt
+    val_partition_file: dataset/meta_info/meta_info_DAVIDE_val_partition.txt
+    io_backend:
+      type: disk
+    center_crop:
+      gt_patch_size: 1024
+    n_frames_per_video: 30
+    cache_data: true
+    pad_sequence: false
+    depth_normalization: *depth_normalization_ptr
+    concat_frames_in_batch: false
+
+# training settings
+train:
+  total_epochs: 300
+  warmup_epochs: 1  
+  ema_decay: 0.0
+  enable_AMP: true
+  grad_clip: 1.0
+
+  optim_g:
+    type: AdamW
+    lr: !!float 2e-4
+    weight_decay: !!float 1e-4
+    betas: [0.9, 0.99]
+
+  scheduler:
+    type: CosineAnnealingLR
+    T_max_in_epochs: 300
+    eta_min: !!float 1e-7
+
+  # losses
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1.0
+    reduction: mean
+  
+  perceptual_opt:
+    type: PerceptualLoss
+    vgg_type: vgg19
+    layer_weights:
+      conv3_3: 1.0
+    perceptual_weight: !!float 1e-4
+    criterion: l2
+
+
+# path
+path:
+  experiments_root: ${oc.env:EXPS_ROOT}/E2_SOTA_comparison
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: auto
+
+
+# validation settings
+val:
+  val_freq_in_epochs: 2
+  save_img: true
+  save_img_freq: 3
+  rgb2bgr: true
+  pad_seq: false
+  window_size: [2,16,16]
+  num_frame_testing: 1
+  num_frame_overlapping: 0
+  not_overlap_clip_border: false
+  size_patch_testing: 304
+  overlap_patch_size: 8
+  not_overlap_patch_border: true
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+      mode: max
+
+# logging settings
+logger:
+  print_freq: 200
+  save_checkpoint_freq_in_epochs: 2
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29576

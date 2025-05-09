@@ -1,0 +1,13 @@
+name: 000_train_shiftnet_baseRGB_in01_out01_seed10
+aux_data_model: [none]
+in_seq_length: 1
+out_seq_length: 1
+seed: 10
+
+datasets:
+  train:
+    batch_size_per_gpu: 4
+
+val:
+  num_frame_testing: 1
+  num_frame_overlapping: 0

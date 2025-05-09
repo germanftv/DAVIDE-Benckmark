@@ -1,0 +1,8 @@
+name: 010_test_shiftnet_baseRGB_in11_out09_seed13
+aux_data_model: [none]
+in_seq_length: 11
+out_seq_length: 9
+seed: 13
+
+path:
+  pretrain_network_g: ${oc.env:EXPS_ROOT}/E1_depth_impact/010_train_shiftnet_baseRGB_in11_out09_seed13/models/net_g_best.pth

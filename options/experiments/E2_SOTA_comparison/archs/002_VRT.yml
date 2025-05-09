@@ -1,0 +1,18 @@
+# network structure
+network_g:
+  type: VRT
+  upscale: 1
+  img_size: [6, 192, 192]
+  window_size: [3, 8, 8]
+  depths: [8, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4]
+  indep_reconsts: [9, 10]
+  embed_dims: [96, 96, 96, 96, 96, 96, 96, 120, 120, 120, 120]
+  num_heads: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+  spynet_path: model_zoo/misc/vrt/spynet_sintel_final-3d2a1287.pth # automatical download
+  pa_frames: 2
+  deformable_groups: 16
+  nonblind_denoising: false
+  use_checkpoint_attn: true
+  use_checkpoint_ffn: true
+  no_checkpoint_attn_blocks: [2, 3, 4]
+  no_checkpoint_ffn_blocks: [1, 2, 3, 4, 5, 9]

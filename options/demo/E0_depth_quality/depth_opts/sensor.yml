@@ -1,0 +1,11 @@
+manual_seed: 13
+aux_data_model: [depth]
+
+# datasets
+datasets:
+  test:
+    dataroots:
+      depth: ${oc.env:DEMO_DATA_ROOT}/demo-data/depth
+    depth_normalization: &depth_normalization_ptr
+      type: seq_abs_maxnorm
+      depth_range: [null, null]

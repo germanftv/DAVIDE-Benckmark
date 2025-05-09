@@ -1,0 +1,9 @@
+name: 002_train_shiftnet_baseRGB_in03_out01_seed10
+aux_data_model: [none]
+in_seq_length: 3
+out_seq_length: 1
+seed: 10
+
+datasets:
+  train:
+    batch_size_per_gpu: 2

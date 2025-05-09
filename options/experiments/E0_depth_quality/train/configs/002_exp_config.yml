@@ -1,0 +1,17 @@
+name: 002_train_shiftnet_depth_quality_mono_sharp
+manual_seed: 13
+aux_data_model: [mono_depth_sharp]
+
+# datasets
+datasets:
+  train:
+    dataroots:
+      mono_depth_sharp: ${oc.env:DATASET_ROOT}/train_mono_depth_sharp.lmdb
+    depth_normalization: &depth_normalization_ptr
+      type: nothing
+      depth_range: [null, null]
+
+  val:
+    dataroots:
+      mono_depth_sharp: ${oc.env:DATASET_ROOT}/train/mono-depth_sharp
+    depth_normalization: *depth_normalization_ptr

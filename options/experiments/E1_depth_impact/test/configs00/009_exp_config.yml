@@ -1,0 +1,8 @@
+name: 009_test_shiftnet_RGBD_in09_out07_seed10
+aux_data_model: [depth]
+in_seq_length: 9
+out_seq_length: 7
+seed: 10
+
+path:
+  pretrain_network_g: ${oc.env:EXPS_ROOT}/E1_depth_impact/009_train_shiftnet_RGBD_in09_out07_seed10/models/net_g_best.pth

@@ -1,0 +1,17 @@
+name: 001_train_shiftnet_depth_quality_mono_blur
+manual_seed: 13
+aux_data_model: [mono_depth_blur]
+
+# datasets
+datasets:
+  train:
+    dataroots:
+      mono_depth_blur: ${oc.env:DATASET_ROOT}/train_mono_depth_blur.lmdb
+    depth_normalization: &depth_normalization_ptr
+      type: nothing
+      depth_range: [null, null]
+
+  val:
+    dataroots:
+      mono_depth_blur: ${oc.env:DATASET_ROOT}/train/mono-depth_blur
+    depth_normalization: *depth_normalization_ptr

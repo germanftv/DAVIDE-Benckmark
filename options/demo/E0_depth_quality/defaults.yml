@@ -1,0 +1,62 @@
+# general settings
+name: ~ # This will be set by the argument parser
+model_type: DavideModel
+num_gpu: 1
+model_stride: 1
+scale: 1
+find_unused_parameters: true
+
+datasets:
+  test:
+    name: Demo-DAViDE
+    type: DavideDemoInference
+    clip_name: ~ #This will be set by the argument parser 
+    dataroots:
+      gt: ${oc.env:DEMO_DATA_ROOT}/demo-data/gt
+      blur: ${oc.env:DEMO_DATA_ROOT}/demo-data/blur
+
+    num_frame_testing: 7
+    concat_frames_in_batch: false
+    scale: 1
+
+
+# path
+path:
+  results_root: E0_depth_quality #This will be modified by the argument parser
+  pretrain_network_g: ~ # This will be set by the argument parser
+  strict_load_g: true
+  resume_state: auto
+
+
+
+# testing settings
+test:
+  enable_AMP: true
+  use_TLC: true
+  tlc_layers: [local_avgpool, local_crossattn]
+  save_img: true
+  save_img_freq: 1
+  rgb2bgr: true
+  window_size: [2,16,16]
+  num_frame_testing: 7
+  size_patch_testing: 720
+  overlap_patch_size: 16
+  not_overlap_patch_border: true
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+      mode: max
+    ssim:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: false
+      mode: max
+
+# logging settings
+logger:
+  print_freq: 1
+  use_tb_logger: false
+

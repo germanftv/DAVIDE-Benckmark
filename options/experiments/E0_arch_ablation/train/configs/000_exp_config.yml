@@ -1,0 +1,8 @@
+name: 000_train_shiftnet_RGBD_concatconv_shiftdepth0_seed10
+aux_data_model: [depth]
+manual_seed: 10
+
+network_g:
+  fusion_opt: ConcatConv
+  shift_depth_feat: false
+

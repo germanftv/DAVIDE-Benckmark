@@ -1,0 +1,81 @@
+# general settings
+model_type: DavideModel
+aux_data_model: [depth]
+num_gpu: 1
+model_stride: 1
+scale: 1
+find_unused_parameters: true
+
+datasets:
+  test:
+    name: DAViDE-Validation
+    type: DavideTestDataset
+    dataroots:
+      gt: ${oc.env:DATASET_ROOT}/train/gt
+      blur: ${oc.env:DATASET_ROOT}/train/blur
+      depth: ${oc.env:DATASET_ROOT}/train/depth
+    meta_info_file: dataset/meta_info/meta_info_DAVIDE_train.txt
+    val_partition_file: dataset/meta_info/meta_info_DAVIDE_val_partition.txt
+
+    num_frame_testing: 7
+    concat_frames_in_batch: false
+    scale: 1
+    depth_normalization: &depth_normalization_ptr
+      type: seq_abs_maxnorm
+      depth_range: [null, null]   
+
+
+# network structure
+network_g:
+  type: ShiftNetPlus
+  input_channels: 3
+  num_rgb_processing_features: 16
+  num_rgb_multiframe_features: 64
+  num_rgb_mf_encoding_blocks: 2
+  stack_size_rgb_feat_ext: 1
+  num_depth_processing_features: 16
+  num_depth_multiframe_features: 48
+  num_depth_mf_encoding_blocks: 1
+  stack_size_depth_feat_ext: 1
+  num_depth_fusion_blocks: 2
+  stack_size_restoration: 1
+
+
+# path
+path:
+  results_root: ${oc.env:RESULTS_ROOT}/E0_arch_ablation
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: auto
+
+
+# testing settings
+test:
+  enable_AMP: true
+  use_TLC: true
+  save_img: true
+  save_img_freq: 50
+  rgb2bgr: true
+  window_size: [2,16,16]
+  num_frame_testing: 7
+  size_patch_testing: 720
+  overlap_patch_size: 16
+  not_overlap_patch_border: true
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+      mode: max
+    ssim:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: false
+      mode: max
+
+# logging settings
+logger:
+  print_freq: 1
+  use_tb_logger: false
+

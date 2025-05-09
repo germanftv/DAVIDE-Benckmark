@@ -1,0 +1,62 @@
+# general settings
+name: 000_test_DGN_multi_frame
+num_gpu: 1
+model_type: DavideModel
+aux_data_model: [depth]
+model_stride: 2
+scale: 1
+find_unused_parameters: false
+use_static_graph: false
+manual_seed: 10
+
+datasets:
+  test:
+    name: DAViDE-Test
+    type: DavideTestDataset
+    dataroots:
+      gt: ${oc.env:DATASET_ROOT}/test/gt
+      blur: ${oc.env:DATASET_ROOT}/test/blur
+      depth: ${oc.env:DATASET_ROOT}/test/depth
+
+    num_frame_testing: 1
+    concat_frames_in_batch: false
+    scale: 1
+    depth_normalization: &depth_normalization_ptr
+      type: frame_abs_maxnorm
+      depth_range: [null, null]
+
+# path
+path:
+  results_root: ${oc.env:RESULTS_ROOT}/E2_SOTA_comparison
+  pretrain_network_g: ${oc.env:EXPS_ROOT}/E2_SOTA_comparison/000_train_DGN_multi_frame/models/net_g_best.pth
+  strict_load_g: true
+  resume_state: auto
+
+# testing settings
+test:
+  enable_AMP: true
+  save_img: true
+  save_img_freq: 1
+  rgb2bgr: true
+  window_size: [2,16,16]
+  num_frame_testing: 1
+  size_patch_testing: 0
+  overlap_patch_size: 16
+  not_overlap_patch_border: true
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+      mode: max
+    ssim:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: false
+      mode: max
+
+# logging settings
+logger:
+  print_freq: 1
+  use_tb_logger: false

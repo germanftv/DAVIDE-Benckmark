@@ -1,0 +1,9 @@
+name: 003_train_shiftnet_RGBD_in03_out01_seed17
+aux_data_model: [depth]
+in_seq_length: 3
+out_seq_length: 1
+seed: 17
+
+datasets:
+  train:
+    batch_size_per_gpu: 2

@@ -1,0 +1,21 @@
+# general settings
+model_type: DavideModel
+aux_data_model: [none]
+model_stride: 1
+find_unused_parameters: true
+
+datasets:
+  test:
+    num_frame_testing: 18
+
+# testing settings
+test:
+  enable_AMP: true
+  use_TLC: true
+  tlc_layers: [local_avgpool, local_crossattn]
+  window_size: [2,16,16]
+  num_frame_testing: 18     
+  size_patch_testing: 640   
+  overlap_patch_size: 16
+  not_overlap_patch_border: true
+

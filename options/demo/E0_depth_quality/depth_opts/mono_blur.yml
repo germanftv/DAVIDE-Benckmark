@@ -1,0 +1,11 @@
+manual_seed: 13
+aux_data_model: [mono_depth_blur]
+
+# datasets
+datasets:
+  test:
+    dataroots:
+      mono_depth_blur: ${oc.env:DEMO_DATA_ROOT}/demo-data/mono-depth_blur
+    depth_normalization: &depth_normalization_ptr
+      type: nothing
+      depth_range: [null, null]

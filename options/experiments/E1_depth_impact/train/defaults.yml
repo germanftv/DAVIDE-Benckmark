@@ -1,0 +1,137 @@
+# general settings
+model_type: DavideModel
+num_gpu: 4
+scale: 1
+find_unused_parameters: true
+use_static_graph: false
+
+# datasets
+datasets:
+  train:
+    name: DAViDE-training_dataset
+    type: DavideTrainDataset
+    dataroots: &dataroots_ptr
+      gt: ${oc.env:DATASET_ROOT}/train_gt.lmdb
+      blur: ${oc.env:DATASET_ROOT}/train_blurred.lmdb
+      depth: ${oc.env:DATASET_ROOT}/train_depth.lmdb
+    meta_info_file: dataset/meta_info/meta_info_DAVIDE_train.txt
+    val_partition_file: dataset/meta_info/meta_info_DAVIDE_val_partition.txt
+    filename_tmpl: 08d
+    filename_ext: png
+    io_backend:
+      type: lmdb
+
+    num_seqs_per_video: 100
+    concat_frames_in_batch: false
+    scale: 1
+    resize:
+      factor: 0.8
+    cropping: 
+      type: random
+      gt_patch_size: 256
+    augmentations:
+      use_random_reverse: false
+      use_flip: true
+      use_rot: true
+    use_local_scratch: true
+    depth_normalization: &depth_normalization_ptr
+      type: seq_abs_maxnorm
+      depth_range: [null, null]
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 3
+    batch_size_per_gpu: 1
+    prefetch_mode: cpu
+    pin_memory: true
+  
+  val:
+    name: DAVIDE-validation_dataset
+    type: DavideValDataset
+    dataroots:
+      gt: ${oc.env:DATASET_ROOT}/train/gt
+      blur: ${oc.env:DATASET_ROOT}/train/blur
+      depth: ${oc.env:DATASET_ROOT}/train/depth
+    meta_info_file: dataset/meta_info/meta_info_DAVIDE_train.txt
+    val_partition_file: dataset/meta_info/meta_info_DAVIDE_val_partition.txt
+    center_crop:
+      gt_patch_size: 1024
+    n_frames_per_video: 30
+    cache_data: true
+    pad_sequence: false
+    concat_frames_in_batch: false
+    depth_normalization: *depth_normalization_ptr
+
+
+# path
+path:
+  experiments_root: ${oc.env:EXPS_ROOT}/E1_depth_impact/
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: auto
+
+
+# training settings
+train:
+  optim_g:
+    type: AdamW
+    lr: !!float 3e-4
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  scheduler:
+    type: CosineAnnealingLR
+    T_max_in_epochs: 200
+    eta_min: !!float 1e-7
+
+  total_epochs: 200
+  warmup_iter: -1 # no warm up
+  ema_decay: 0.0
+  enable_AMP: true
+  grad_clip: 1.0
+  fusion_lr_mul: 1.0
+
+  # losses
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1.0
+    reduction: mean
+
+
+# validation settings
+val:
+  val_freq_in_epochs: 4
+  save_img: true
+  save_img_freq: 2
+  rgb2bgr: true
+  pad_seq: true
+  window_size: [2,16,16]
+  num_frame_testing: 0
+  num_frame_overlapping: 2
+  not_overlap_clip_border: false
+  size_patch_testing: 512
+  overlap_patch_size: 16
+  not_overlap_patch_border: true
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+      mode: max
+
+
+# logging settings
+logger:
+  print_freq: 200
+  save_checkpoint_freq_in_epochs: 4
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29501

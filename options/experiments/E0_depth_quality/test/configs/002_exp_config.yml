@@ -1,0 +1,15 @@
+name: 002_test_shiftnet_depth_quality_mono_sharp
+manual_seed: 13
+aux_data_model: [mono_depth_sharp]
+
+# datasets
+datasets:
+  test:
+    dataroots:
+      mono_depth_sharp: ${oc.env:DATASET_ROOT}/train/mono-depth_sharp
+    depth_normalization: &depth_normalization_ptr
+      type: nothing
+      depth_range: [null, null]
+
+path:
+  pretrain_network_g: ${oc.env:EXPS_ROOT}/E0_depth_quality/002_train_shiftnet_depth_quality_mono_sharp/models/net_g_best.pth

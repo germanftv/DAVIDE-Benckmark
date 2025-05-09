@@ -1,0 +1,11 @@
+# network structures
+network_g:
+  type: ShiftNetPlus
+  aux_data: [none]
+  input_channels: 3
+  num_rgb_processing_features: 16
+  num_rgb_multiframe_features: 64
+  num_rgb_mf_encoding_blocks: 2
+  stack_size_rgb_feat_ext: 2
+  stack_size_restoration: 2
+  fusion_opt: none

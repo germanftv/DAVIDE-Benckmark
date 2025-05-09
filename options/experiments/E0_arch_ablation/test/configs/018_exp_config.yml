@@ -1,0 +1,10 @@
+name: 018_test_shiftnet_RGBD_dat_shiftdepth0_seed10
+aux_data_model: [depth]
+manual_seed: 10
+
+network_g:
+  fusion_opt: DaT
+  shift_depth_feat: false
+
+path:
+  pretrain_network_g: ${oc.env:EXPS_ROOT}/E0_arch_ablation/018_train_shiftnet_RGBD_dat_shiftdepth0_seed10/models/net_g_best.pth

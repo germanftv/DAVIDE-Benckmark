@@ -1,0 +1,5 @@
+name: 009_train_shiftnet_RGBD_in09_out07_seed10
+aux_data_model: [depth]
+in_seq_length: 9
+out_seq_length: 7
+seed: 10

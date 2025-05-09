@@ -1,0 +1,14 @@
+# network structure
+network_g:
+  type: EDVR
+  num_in_ch: 3
+  num_out_ch: 3
+  num_feat: 128
+  num_frame: 5
+  deformable_groups: 8
+  num_extract_block: 5
+  num_reconstruct_block: 40
+  center_frame_idx: ~
+  hr_in: true
+  with_predeblur: true
+  with_tsa: true

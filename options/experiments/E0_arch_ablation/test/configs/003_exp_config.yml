@@ -1,0 +1,10 @@
+name: 003_test_shiftnet_RGBD_concatconv_shiftdepth1_seed10
+aux_data_model: [depth]
+manual_seed: 10
+
+network_g:
+  fusion_opt: ConcatConv
+  shift_depth_feat: true
+
+path:
+  pretrain_network_g: ${oc.env:EXPS_ROOT}/E0_arch_ablation/003_train_shiftnet_RGBD_concatconv_shiftdepth1_seed10/models/net_g_best.pth

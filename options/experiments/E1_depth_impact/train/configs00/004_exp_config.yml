@@ -1,0 +1,5 @@
+name: 004_train_shiftnet_baseRGB_in05_out03_seed10
+aux_data_model: [none]
+in_seq_length: 5
+out_seq_length: 3
+seed: 10

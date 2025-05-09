@@ -1,0 +1,17 @@
+name: 000_train_shiftnet_depth_quality_sensor
+manual_seed: 13
+aux_data_model: [depth]
+
+# datasets
+datasets:
+  train:
+    dataroots:
+      depth: ${oc.env:DATASET_ROOT}/train_depth.lmdb
+    depth_normalization: &depth_normalization_ptr
+      type: seq_abs_maxnorm
+      depth_range: [null, null]
+
+  val:
+    dataroots:
+      depth: ${oc.env:DATASET_ROOT}/train/depth
+    depth_normalization: *depth_normalization_ptr

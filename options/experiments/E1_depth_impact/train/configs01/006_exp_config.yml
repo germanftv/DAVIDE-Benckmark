@@ -1,0 +1,5 @@
+name: 006_train_shiftnet_baseRGB_in07_out05_seed13
+aux_data_model: [none]
+in_seq_length: 7
+out_seq_length: 5
+seed: 13

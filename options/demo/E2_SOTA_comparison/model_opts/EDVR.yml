@@ -1,0 +1,20 @@
+# general settings
+model_type: EDVRModel
+aux_data_model: [none]
+model_stride: 2
+find_unused_parameters: true
+use_static_graph: false
+
+datasets:
+  test:
+    num_frame_testing: 1
+
+# testing settings
+test:
+  enable_AMP: false
+  ema_decay: 0.999
+  window_size: [2,16,16]
+  num_frame_testing: 1
+  size_patch_testing: 0
+  overlap_patch_size: 16
+  not_overlap_patch_border: true

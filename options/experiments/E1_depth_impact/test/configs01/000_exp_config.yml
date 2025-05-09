@@ -1,0 +1,15 @@
+name: 000_test_shiftnet_baseRGB_in01_out01_seed13
+aux_data_model: [none]
+in_seq_length: 1
+out_seq_length: 1
+seed: 13
+
+path:
+  pretrain_network_g: ${oc.env:EXPS_ROOT}/E1_depth_impact/000_train_shiftnet_baseRGB_in01_out01_seed13/models/net_g_best.pth
+
+datasets:
+  test:
+    num_frame_testing: 1
+
+test:
+  num_frame_testing: 1

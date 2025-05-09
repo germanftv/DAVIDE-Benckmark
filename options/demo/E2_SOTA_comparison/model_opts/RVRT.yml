@@ -1,0 +1,21 @@
+# general settings
+model_type: VRTModel
+aux_data_model: [none]
+model_stride: 0
+find_unused_parameters: true
+use_static_graph: false
+
+datasets:
+  test:
+    num_frame_testing: 18
+
+# testing settings
+test:
+  enable_AMP: false
+  ema_decay: 0.0
+  window_size: [2,8,8]
+  num_frame_testing: 18
+  size_patch_testing: 256
+  overlap_patch_size: 16
+  not_overlap_patch_border: true
+

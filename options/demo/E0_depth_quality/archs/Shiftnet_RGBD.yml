@@ -1,0 +1,16 @@
+# network structure
+network_g:
+  type: ShiftNetPlus
+  input_channels: 3
+  num_rgb_processing_features: 16
+  num_rgb_multiframe_features: 64
+  num_rgb_mf_encoding_blocks: 2
+  stack_size_rgb_feat_ext: 1
+  num_depth_processing_features: 16
+  num_depth_multiframe_features: 48
+  num_depth_mf_encoding_blocks: 1
+  stack_size_depth_feat_ext: 1
+  num_depth_fusion_blocks: 2
+  stack_size_restoration: 1
+  fusion_opt: DaT
+  shift_depth_feat: true  

@@ -1,0 +1,6 @@
+# network structure
+network_g:
+  type: DGN
+  num_processing_features: 64
+  input_channels: 3
+  condition_channels: 1
