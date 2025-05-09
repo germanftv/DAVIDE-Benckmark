@@ -1,5 +1,5 @@
 # DAVIDE - Benchmark
-[![Project Page](https://img.shields.io/badge/Project%20Page-DAVIDE-blue)](https://germanftv.github.io/ParallaxICB.github.io/)
+[![Project Page](https://img.shields.io/badge/Project%20Page-DAVIDE-blue)](https://germanftv.github.io/DAVIDE.github.io/)
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2409.01274)
 
 This repository provides the source code for benchmarking deep video deblurring methods on the DAVIDE dataset. The dataset and methods are introduced in the paper **"DAVIDE: Depth-Aware Video Deblurring" (ECCVW 2024)**.
