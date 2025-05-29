@@ -1,6 +1,7 @@
 # DAVIDE - Benchmark
 [![Project Page](https://img.shields.io/badge/Project%20Page-DAVIDE-blue)](https://germanftv.github.io/DAVIDE.github.io/)
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2409.01274)
+[![Springer](https://img.shields.io/badge/Springer-Link-yellowgreen)](https://link.springer.com/chapter/10.1007/978-3-031-91838-4_10)
 
 This repository provides the source code for benchmarking deep video deblurring methods on the DAVIDE dataset. The dataset and methods are introduced in the paper **"DAVIDE: Depth-Aware Video Deblurring" (ECCVW 2024)**.
 
@@ -10,7 +11,7 @@ This repository provides the source code for benchmarking deep video deblurring 
         <em>Fig. 1. Examples of depth-aware video deblurring with an increasing context window in the input.</em>
 </p>
 
- ### [Project Page](https://germanftv.github.io/DAVIDE.github.io/) | [arXiv](https://arxiv.org/abs/2409.01274) | [Dataset Synthesis Repository](https://github.com/germanftv/DAVIDE-Synthesis.git)  | [Data Capture App](https://github.com/JussiKalliola/DAVIDE-app) | [Data Access Form](https://docs.google.com/forms/d/e/1FAIpQLSeQ2w4xsoIkzJ6kNseSiHkMaj303_tXRs2v23wqF3chfSF1FQ/viewform?usp=header)
+ ### [Project Page](https://germanftv.github.io/DAVIDE.github.io/) | [arXiv](https://arxiv.org/abs/2409.01274) | [Springer](https://link.springer.com/chapter/10.1007/978-3-031-91838-4_10) | [Dataset Synthesis Repository](https://github.com/germanftv/DAVIDE-Synthesis.git)  | [Data Capture App](https://github.com/JussiKalliola/DAVIDE-app) | [Data Access Form](https://docs.google.com/forms/d/e/1FAIpQLSeQ2w4xsoIkzJ6kNseSiHkMaj303_tXRs2v23wqF3chfSF1FQ/viewform?usp=header)
 
  ## 📑 Contents
 
@@ -253,12 +254,19 @@ After computing all test results, you can generate tables and figures using the 
 ## 📚 Citation
 If you find our work useful in your research, please cite:
 
-    @article{torres2024davide,
-        title={DAVIDE: Depth-Aware Video Deblurring},
-        author={Torres, German F and Kalliola, Jussi and Tripathy, Soumya and Acar, Erman and K{\"a}m{\"a}r{\"a}inen, Joni-Kristian},
-        journal={arXiv preprint arXiv:2409.01274},
-        year={2024}
-        }
+    @InProceedings{torres2024davide,
+      author    = {Torres, German F. and Kalliola, Jussi and Tripathy, Soumya and Acar, Erman and K{\"a}m{\"a}r{\"a}inen, Joni-Kristian},
+      editor    = {Del Bue, Alessio and Canton, Cristian and Pont-Tuset, Jordi and Tommasi, Tatiana},
+      title     = {DAVIDE: Depth-Aware Video Deblurring},
+      booktitle = {Computer Vision — ECCV 2024 Workshops},
+      year      = {2024},
+      month     = sep,
+      publisher = {Springer Nature Switzerland},
+      address   = {Cham, Switzerland},
+      pages     = {161–179},
+      isbn      = {978-3-031-91838-4},
+      doi       = {10.1007/978-3-031-91838-4_10},
+    }
 
 ## 📝 License and Acknowledgements
 
